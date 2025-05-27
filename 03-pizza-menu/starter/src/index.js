@@ -100,6 +100,7 @@ const Menu = () => {
   );
 };
 const Pizza = (props) => {
+  if (props.pizzaObj.soldOut) return null;
   console.log(props);
   return (
     <li>
@@ -127,6 +128,7 @@ const Footer = () => {
   // } else {
   //   console.log(`Sorry, we're closed`);
   // }
+  // if (!isOpen) return <p>CLOSED</p>;
 
   return (
     <footer className="footer">
