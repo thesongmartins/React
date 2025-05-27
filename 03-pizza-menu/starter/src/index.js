@@ -79,7 +79,7 @@ const Menu = () => {
         price={10}
       />
       <Pizza
-        name="Pizza Funghi"
+        // name="Pizza Funghi"
         ingredients="Tomato, mushrooms"
         price={12}
         photoName="pizzas/funghi.jpg"
