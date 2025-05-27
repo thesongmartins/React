@@ -142,7 +142,7 @@ const Footer = () => {
     </footer>
   );
 
-  const Order = ({ closeHour }) => {
+  function Order({ closeHour }) {
     return (
       <>
         <div className="order">
@@ -151,7 +151,7 @@ const Footer = () => {
         <button className="btn">Order Now</button>
       </>
     );
-  };
+  }
 };
 
 // React Version 18
