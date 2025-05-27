@@ -87,12 +87,14 @@ const Menu = () => {
         photoName="pizzas/funghi.jpg"
       /> */}
 
-      {numPizzas > 0 && (
+      {numPizzas > 0 ? (
         <ul className="pizzas">
           {pizzaData.map((pizza) => (
             <Pizza pizzaObj={pizza} key={pizza.name} />
           ))}
         </ul>
+      ) : (
+        <p>We're still working on our menu. Please come back later.</p>
       )}
     </main>
   );
@@ -128,7 +130,7 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      {isOpen && (
+      {isOpen ? (
         <>
           <div className="order">
             <p>
@@ -137,6 +139,10 @@ const Footer = () => {
           </div>
           <button className="btn">Order Now</button>
         </>
+      ) : (
+        <p>
+          We're happy to welcome you betweeen {openHour}:00 and {closeHour}:00
+        </p>
       )}
     </footer>
   );
