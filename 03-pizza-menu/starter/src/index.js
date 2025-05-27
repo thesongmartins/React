@@ -118,7 +118,7 @@ const Pizza = (props) => {
 
 const Footer = () => {
   const hour = new Date().getHours();
-  const openHour = 8;
+  const openHour = 12;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
   console.log(isOpen);
@@ -133,14 +133,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       {isOpen ? (
-        <>
-          <div className="order">
-            <p>
-              We're open until {closeHour}:00. Come visit us or order online.{" "}
-            </p>
-          </div>
-          <button className="btn">Order Now</button>
-        </>
+        <Order closeHour={closeHour} />
       ) : (
         <p>
           We're happy to welcome you betweeen {openHour}:00 and {closeHour}:00
@@ -148,6 +141,20 @@ const Footer = () => {
       )}
     </footer>
   );
+
+  const Order = (props) => {
+    return (
+      <>
+        <div className="order">
+          <p>
+            We're open until {props.closeHour}:00. Come visit us or order
+            online.
+          </p>
+        </div>
+        <button className="btn">Order Now</button>
+      </>
+    );
+  };
 };
 
 // React Version 18
