@@ -1,13 +1,8 @@
 import ListBox from "./ListBox";
 import WatchedBox from "./WatchedBox";
 
-const MainContents = ({ movies, loading }) => {
-  return (
-    <main className="main">
-      <ListBox movies={movies} loading={loading} />
-      <WatchedBox />
-    </main>
-  );
+const MainContents = ({ children }) => {
+  return <main className="main">{children}</main>;
 };
 
 export default MainContents;

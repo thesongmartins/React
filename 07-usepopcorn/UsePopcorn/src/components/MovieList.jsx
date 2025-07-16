@@ -26,19 +26,10 @@ import Movie from "./Movie";
 // ];
 
 const MovieList = ({ movies, loading }) => {
-  // const [movies, setMovies] = useState([]);
-
-  // const KEY = "f84fc31d";
-
-  // useEffect(() => {
-  //   fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=intersellar`)
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data.search));
-  // }, []);
   return (
     <ul className="list">
       {loading ? (
-        <p className="loader">Loading...</p>
+        <Loader />
       ) : (
         movies?.map((movie) => <Movie movie={movie} key={movie.imdbID} />)
       )}
