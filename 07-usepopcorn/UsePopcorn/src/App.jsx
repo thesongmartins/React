@@ -22,6 +22,7 @@ const App = () => {
     const fetchMovies = async () => {
       try {
         setLoading(true);
+        setError("");
         const res = await fetch(
           `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
         );
@@ -30,9 +31,11 @@ const App = () => {
           throw new Error(
             "Something went wrong with fetching movies!! Please try again."
           );
+
         const data = await res.json();
-        // console.log(data.Search);
-        if (data.Response === "False") throw new Error("Movie Not Found!!");
+        console.log(data);
+
+        if (data.Response === "False") throw new Error("MOVIE NOT FOUND!!");
 
         setMovies(data.Search);
       } catch (err) {
@@ -40,6 +43,11 @@ const App = () => {
         setError(err.message);
       } finally {
         setLoading(false);
+      }
+
+      if (query.length < 3) {
+        setMovies([]);
+        setError("");
       }
     };
     fetchMovies();
@@ -54,8 +62,8 @@ const App = () => {
       {/* <Navbar movies={movies} query={query} setQuery={setQuery} /> */}
       <MainContents>
         <ListBox>
-          {loading && <Loader />}
-          {!loading && !error && <MovieList movies={movies} />}
+          {/* {loading && <Loader />} */}
+          {!loading ? <MovieList movies={movies} /> : <Loader />}
           {error && <ErrorMessage message={error} />}
         </ListBox>
         <WatchedBox />
