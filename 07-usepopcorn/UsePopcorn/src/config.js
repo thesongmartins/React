@@ -1,0 +1,1 @@
+export const API_KEY = "your_omdb_api_key_here";

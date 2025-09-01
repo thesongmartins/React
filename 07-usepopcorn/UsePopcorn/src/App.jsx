@@ -9,14 +9,20 @@ import WatchedBox from "./components/WatchedBox";
 import Loader from "./components/Loader";
 import MovieList from "./components/MovieList";
 import ErrorMessage from "./components/ErrorMessage";
+import { API_KEY } from "./config";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
+  const [selectedId, setSelectedId] = useState("tt15893750");
 
-  const KEY = "b3f76499";
+  const KEY = import.meta.env.VITE_API_KEY;
+
+  const handleSelectedMovie = (id) => {
+    setSelectedId(id);
+  };
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -38,6 +44,7 @@ const App = () => {
         if (data.Response === "False") throw new Error("MOVIE NOT FOUND!!");
 
         setMovies(data.Search);
+        console.log(data.Search);
       } catch (err) {
         console.error(err.message);
         setError(err.message);
