@@ -21,7 +21,8 @@ function DateCounter() {
 
   const inc = function () {
     // setCount((count) => count + 1);
-    setCount((count) => count + step);
+    // setCount((count) => count + step);
+    dispatch(1);
   };
 
   const defineCount = function (e) {
