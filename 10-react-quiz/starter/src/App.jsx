@@ -1,6 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import Header from "./Header";
 import Maincom from "./maincom";
+import Loader from "./Loader";
+import Error from "./Error";
+import Startscreen from "./startScreen";
+import Question from "./Question";
 
 const initialState = {
   questions: [],
@@ -25,20 +29,47 @@ function reducer(state, action) {
         ...state,
         status: "error",
       };
+    case "start":
+      return {
+        ...state,
+        status: "active",
+      };
+    case "newAnswer":
+      return {
+        ...state,
+        answer: action.payload,
+      };
+    case "next":
+      return {
+        ...state,
+        status: "active",
+        index: state.index + 1,
+      };
+
     default:
       return state;
   }
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [{ questions, status, index, answer }, dispatch] = useReducer(
+    reducer,
+    initialState,
+  );
+
+  const numQuestions = questions.length;
+
   useEffect(() => {
     async function fetchQuestions() {
-      const res = await fetch("http://localhost:3000/questions");
-      const data = await res.json();
+      try {
+        const res = await fetch("http://localhost:3000/questions");
+        const data = await res.json();
 
-      if (!data.ok) throw new Error("Failed to fetch questions");
-      console.log(data);
+        // if (!data.ok) throw new Error("Failed to fetch questions");
+        dispatch({ type: "dataReceived", payload: data });
+      } catch (errorr) {
+        dispatch({ type: "dataFailed" });
+      }
     }
     fetchQuestions();
   }, []);
@@ -48,8 +79,20 @@ function App() {
         <Header />
 
         <Maincom>
-          <p>1/15</p>
-          <p>Question?</p>
+          {status === "loading" && <Loader />}
+          {status === "error" && <Error />}
+          {status === "ready" && (
+            <Startscreen numQuestions={numQuestions} dispatch={dispatch} />
+          )}
+
+          {status === "active" && (
+            <Question
+              questions={questions}
+              index={index}
+              dispatch={dispatch}
+              answer={answer}
+            />
+          )}
         </Maincom>
       </div>
     </>
