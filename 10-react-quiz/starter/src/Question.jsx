@@ -1,4 +1,5 @@
 import Options from "./components/Options";
+import NextButton from "./components/NextButton";
 
 const Question = ({ questions, index, dispatch, answer }) => {
   return (
@@ -9,6 +10,12 @@ const Question = ({ questions, index, dispatch, answer }) => {
         index={index}
         dispatch={dispatch}
         answer={answer}
+      />
+      <NextButton
+        dispatch={dispatch}
+        answer={answer}
+        index={index}
+        // numQuestions={numQuestions}
       />
     </div>
   );

@@ -44,11 +44,11 @@ function reducer(state, action) {
             ? state.points + question.points
             : state.points,
       };
-    case "next":
+    case "nextQuestion":
       return {
         ...state,
-        status: "active",
         index: state.index + 1,
+        answer: null,
       };
 
     default:
