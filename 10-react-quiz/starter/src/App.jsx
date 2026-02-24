@@ -35,9 +35,14 @@ function reducer(state, action) {
         status: "active",
       };
     case "newAnswer":
+      const question = state.questions.at(state.index);
       return {
         ...state,
         answer: action.payload,
+        points:
+          action.payload === question.correctOption
+            ? state.points + question.points
+            : state.points,
       };
     case "next":
       return {
